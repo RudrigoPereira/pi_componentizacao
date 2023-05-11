@@ -1,0 +1,41 @@
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+.carousel {
+    overflow: hidden;
+}
+.movie-container {
+    display: flex;
+    transition: transform 0.5s;
+}
+.movie {
+    flex: 0 0 500px;
+    margin-right: 10px;
+    vertical-align: top;
+    position: relative;
+}
+.movie a {
+    text-decoration: none;
+}
+.movie img {
+    width: 100%;
+    height: auto;
+}
+.movie .title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 98%;
+    height: 5%;
+    padding: 5px;
+    margin: 0;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.85) 100%);
+    text-align: left;
+    transition: background-color 0.3s;
+}
+.movie:hover .title {
+    background-color: rgba(0, 0, 0, 0.9);
+}
