@@ -1,86 +1,150 @@
-import "./carrosselFilmes.css"
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import "./carrosselFilmes.css";
 
 export default function CarrosselFilmes() {
-    function sliderFilmes() {
-        const carousel = document.querySelector('.carousel');
-        const movieContainer = document.querySelector('.movie-container');
-        const movies = document.querySelectorAll('.movie');
-        const movieWidth = movies[0].offsetWidth;
-        let currentIndex = 0;
-        let interval = null;
+  const movieContainerRef = useRef(null);
+  const movieWidthRef = useRef(0);
+  let currentIndex = 0;
+  let interval = null;
 
-        function nextSlide() {
-            currentIndex++;
-            if (currentIndex >= movies.length) {
-                // Reinicie o carrossel no final
-                currentIndex = 0;
-            }
+  useEffect(() => {
+    const carousel = document.querySelector(".carousel");
+    const movies = document.querySelectorAll(".movie");
+    const movieContainer = movieContainerRef.current;
+    movieWidthRef.current = movies[0].offsetWidth;
 
-            const translateXValue = -currentIndex * movieWidth;
-            movieContainer.style.transform = `translateX(${translateXValue}px)`;
-        }
+    function nextSlide() {
+      currentIndex++;
+      if (currentIndex >= movies.length - 2) {
+        // Reinicie o carrossel no final
+        currentIndex = 0;
+      }
 
-        // Inicie o carrossel automaticamente
+      const translateXValue = -currentIndex * movieWidthRef.current;
+      movieContainer.style.transform = `translateX(${translateXValue}px)`;
+    }
+
+    // Inicie o carrossel automaticamente
+    interval = setInterval(nextSlide, 5000);
+
+    // Pausar o carrossel quando o mouse estiver sobre ele
+    carousel.addEventListener("mouseover", () => {
+      clearInterval(interval);
+    });
+
+    // Retomar o carrossel quando o mouse sair
+    carousel.addEventListener("mouseout", () => {
+      interval = setInterval(nextSlide, 5000);
+    });
+
+    // Pausar o carrossel quando o mouse estiver sobre um dos botões
+    const scrollButtons = document.querySelectorAll(".scroll-button");
+    scrollButtons.forEach((button) => {
+      button.addEventListener("mouseover", () => {
+        clearInterval(interval);
+      });
+
+      button.addEventListener("mouseout", () => {
         interval = setInterval(nextSlide, 5000);
+      });
+    });
 
-        // Pausar o carrossel quando o mouse estiver sobre ele
-        carousel.addEventListener('mouseover', () => {
-            clearInterval(interval);
-        });
-
-        // Retomar o carrossel quando o mouse sair
-        carousel.addEventListener('mouseout', () => {
-            interval = setInterval(nextSlide, 5000);
-        });
+    return () => {
+      clearInterval(interval);
     };
+  }, []);
 
-    React.useEffect(() => {
-        sliderFilmes();
-    }, [])
+  const scrollLeft = () => {
+    const movieContainer = movieContainerRef.current;
+    currentIndex--;
+    if (currentIndex = 0) {
+      // Voltar para o último filme
+      currentIndex = 0;
+    }
 
-    return (
-        <div class="container">
-            <div class="carousel">
-                <div class="movie-container">
-                    <div class="movie">
-                        <a href="#">
-                            <img src={"https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"} alt="Filme 1" />
-                            <h3 class="title">Guardiões da Galáxia Vol.3</h3>
-                        </a>
-                    </div>
-                    <div class="movie">
-                        <a href="#">
-                            <img src={"https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"} alt="Filme 2" />
-                            <p class="title">Guardiões da Galáxia Vol.3</p>
-                        </a>
-                    </div>
-                    <div class="movie">
-                        <a href="#">
-                            <img src={"https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"} alt="Filme 3" />
-                            <p class="title">Guardiões da Galáxia Vol.3</p>
-                        </a>
-                    </div>
-                    <div class="movie">
-                        <a href="#">
-                            <img src={"https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"} alt="Filme 4" />
-                            <p class="title">Guardiões da Galáxia Vol.3</p>
-                        </a>
-                    </div>
-                    <div class="movie">
-                        <a href="#">
-                            <img src={"https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"} alt="Filme 5" />
-                            <p class="title">Guardiões da Galáxia Vol.3</p>
-                        </a>
-                    </div>
-                    <div class="movie">
-                        <a href="#">
-                            <img src={"https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"} alt="Filme 6" />
-                            <p class="title">Guardiões da Galáxia Vol.3</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    const translateXValue = -currentIndex * movieWidthRef.current;
+    movieContainer.style.transform = `translateX(${translateXValue}px)`;
+  };
+
+  const scrollRight = () => {
+    const movieContainer = movieContainerRef.current;
+    currentIndex++;
+    if (currentIndex >= movieContainer.children.length - 3) {
+      // Reiniciar o carrossel no início
+      currentIndex = movieContainer.children.length - 3;
+    }
+
+    const translateXValue = -currentIndex * movieWidthRef.current;
+    movieContainer.style.transform = `translateX(${translateXValue}px)`;
+  };
+
+  return (
+    <div className="container">
+      <div className="carousel">
+        <div className="movie-container" ref={movieContainerRef}>
+          <div className="movie">
+            <a href="#">
+              <img
+                src={
+                  "https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"
+                }
+                alt="Filme 1"
+              />
+              <h2 className="title">Batman</h2>
+            </a>
+          </div>
+          <div className="movie">
+            <a href="#">
+              <img
+                src={
+                  "https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"
+                }
+                alt="Filme 2"
+              />
+              <h2 className="title">Miranha</h2>
+            </a>
+          </div>
+          <div className="movie">
+            <a href="#">
+              <img
+                src={
+                  "https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"
+                }
+                alt="Filme 3"
+              />
+              <h2 className="title">Guardiões da Galáxia Vol.3</h2>
+            </a>
+          </div>
+          <div className="movie">
+            <a href="#">
+              <img
+                src={
+                  "https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"
+                }
+                alt="Filme 4"
+              />
+              <h2 className="title">Guardiões da Galáxia Vol.3</h2>
+            </a>
+          </div>
+          <div className="movie">
+            <a href="#">
+              <img
+                src={
+                  "https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"
+                }
+                alt="Filme 3"
+              />
+              <h2 className="title">Guardiões da Galáxia Vol.3</h2>
+            </a>
+          </div>
         </div>
-    );
+      </div>
+      <button className="scroll-button scroll-button-left" onClick={scrollLeft}>
+        &lt;
+      </button>
+      <button className="scroll-button scroll-button-right" onClick={scrollRight}>
+        &gt;
+      </button>
+    </div>
+  );
 }
