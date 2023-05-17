@@ -90,14 +90,14 @@ export default function CarrosselFilmes() {
                 }
                 alt="Filme 1"
               />
-              <h2 className="title">Batman</h2>
+              <h2 className="title">Batmão</h2>
             </a>
           </div>
           <div className="movie">
             <a href="#">
               <img
                 src={
-                  "https://ingresso-a.akamaihd.net/prd/img/movie/guardioes-da-galaxia-vol-3/36434a76-1343-4598-ad2f-fadff2122e94.jpg"
+                  "https://ingresso-a.akamaihd.net/prd/img/movie/homem-aranha-atraves-do-aranhaverso-parte-1/216f2cb7-3a64-4b7a-a338-709bcde71147.webp"
                 }
                 alt="Filme 2"
               />
