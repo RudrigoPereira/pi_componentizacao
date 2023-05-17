@@ -94,3 +94,12 @@
     align-items: flex-start;
   }
   
+  .showtimes-box::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    background-color: #007bff;
+    border-radius: 50%;
+  }
