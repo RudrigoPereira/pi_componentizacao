@@ -1,7 +1,7 @@
 import "./cadeirasCine.css";
 
 export default function CadeirasCine() {
-  const seats = Array.from({ length: 180 }, (_, index) => index + 1);
+  const seats = Array.from({ length: 175 }, (_, index) => index + 1);
 
   const handleSeatClick = (seatNumber) => {
     const seat = document.getElementById(`seat-${seatNumber}`);
@@ -11,13 +11,15 @@ export default function CadeirasCine() {
   };
 
   const isSpaceBetween = (seatNumber) => {
-    const spaceSeats = [8, 24, 40, 56, 72, 88, 104, 120, 136, 152, 168, 178];
+    const spaceSeats = [27, 43, 59, 75, 91, 107, 123, 139, 155, 169];
     return spaceSeats.includes(seatNumber);
   };
 
   const hasBottomMargin = (seatNumber) => {
-    return seatNumber >= 33 && seatNumber <= 48
-        || seatNumber >= 113 && seatNumber <= 128;
+    return (
+      (seatNumber >= 52 && seatNumber <= 67) ||
+      (seatNumber >= 116 && seatNumber <= 131)
+    );
   };
 
   return (
