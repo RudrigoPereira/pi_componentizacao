@@ -4,12 +4,13 @@ import CarrosselFilmes from './carrosselFilmes';
 import InfoFilme from './infoFilmes';
 import CadeirasCine from './cadeirasCine';
 import Header from './Header';
+import Banner from './Banner';
 
 function App() {
   return (
     <div className="App">
       
-      <CadeirasCine/>
+      <Banner/>
     </div>
   );
 }
