@@ -6,12 +6,14 @@ import CadeirasCine from './cadeirasCine';
 import Header from './Header';
 import Banner from './Banner';
 import TrailerSinopse from './TrailerSinopse';
+import EsqueceuSenha from './EsqueceuSenha';
+import RedefinirSenha from './RedefinirSenha';
 
 function App() {
   return (
     <div className="App">
       
-      <TrailerSinopse/>
+      <RedefinirSenha/>
     </div>
   );
 }
