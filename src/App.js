@@ -8,12 +8,13 @@ import Banner from './Banner';
 import TrailerSinopse from './TrailerSinopse';
 import EsqueceuSenha from './EsqueceuSenha';
 import RedefinirSenha from './RedefinirSenha';
+import { Cadastro } from './Cadastro';
 
 function App() {
   return (
     <div className="App">
       
-      <RedefinirSenha/>
+      <Cadastro/>
     </div>
   );
 }
