@@ -9,12 +9,13 @@ import TrailerSinopse from './TrailerSinopse';
 import EsqueceuSenha from './EsqueceuSenha';
 import RedefinirSenha from './RedefinirSenha';
 import { Cadastro } from './Cadastro';
+import FilmesPesquisados from './FilmesPesquisados';
 
 function App() {
   return (
     <div className="App">
       
-      <Cadastro/>
+      <FilmesPesquisados/>
     </div>
   );
 }
